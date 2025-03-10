@@ -1,4 +1,4 @@
 .env
 .venv
 .idea
-./DataBase/BaseRest.db
+/DataBase/BaseRest.db
