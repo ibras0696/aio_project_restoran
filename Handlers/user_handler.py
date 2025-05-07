@@ -32,26 +32,28 @@ async def bookings_get_cmd(message: Message,state: FSMContext):
     result_true = await get_register_table_true(tg_id)
     result_false = await get_register_table_false(tg_id)
 
-    txt = '\n\nОплаченные брони\n\n'
-    for key, value in result_true.items():
-        if len(value) != 0 and key is not None:
-            txt += (f'\nID Брони: {key}'
-                    f'\nTG_ID: {value.get('user_id')}'
-                    f'\nИмя: {value.get('name')}'
-                    f'\nТелефон: {value.get('phone')}'
-                    f'\nВремя бронирования: {value.get('date_time')}'
-                    f'\nКоличество Людей: {value.get('people_count')}'
-                    f'\nСтатус: {value.get('paid')}')
-    await message.answer(text=f'{txt}')
 
-    txt = '\n\nНе оплаченные брони\n\n'
-    for key, value in result_false.items():
+    for key, value in result_true.items():
+        txt = '\n\nОплаченные брони\n\n'
         if len(value) != 0 and key is not None:
-            txt += (f'\nID Брони: {key}'
-                    f'\nTG_ID: {value.get('user_id')}'
-                    f'\nИмя: {value.get('name')}'
-                    f'\nТелефон: {value.get('phone')}'
-                    f'\nВремя бронирования: {value.get('date_time')}'
-                    f'\nКоличество Людей: {value.get('people_count')}'
-                    f'\nСтатус: {value.get('paid')}')
-    await message.answer(text=f'{txt}')
+            txt += (f'\n🔷 ID Брони: {key}'
+                    f'\n👤 TG_ID: {value.get('user_id')}'
+                    f'\n📛 Имя: {value.get('name')}'
+                    f'\n📞 Телефон: {value.get('phone')}'
+                    f'\n⏰ Время бронирования: {value.get('date_time')}'
+                    f'\n👥 Количество людей: {value.get('people_count')}'
+                    f'\n💰 Статус: {"✅ Оплачено" if value.get('paid') else "❌ Не оплачено"}')
+        await message.answer(text=f'{txt}')
+
+
+    for key, value in result_false.items():
+        txt = '\n\nНе оплаченные брони\n\n'
+        if len(value) != 0 and key is not None:
+            txt += (f'\n🔷 ID Брони: {key}'
+                    f'\n👤 TG_ID: {value.get('user_id')}'
+                    f'\n📛 Имя: {value.get('name')}'
+                    f'\n📞 Телефон: {value.get('phone')}'
+                    f'\n⏰ Время бронирования: {value.get('date_time')}'
+                    f'\n👥 Количество людей: {value.get('people_count')}'
+                    f'\n💰 Статус: {"✅ Оплачено" if value.get('paid') else "❌ Не оплачено"}')
+        await message.answer(text=f'{txt}')
